@@ -1,8 +1,11 @@
+import Home from "./components/Home"
+import "./app.css";
+
 function App() {
 
   return (
     <>
-      <h1>Hello World !</h1>
+       <Home />
     </>
   )
 }
