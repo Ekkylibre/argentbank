@@ -24,8 +24,6 @@ function SignIn() {
               <label htmlFor="remember-me">Remember me</label>
             </div>
             <Link to="/user" className="sign-in-button">Sign In</Link>
-            {/* SHOULD BE THE BUTTON BELOW */}
-            {/* <button className="sign-in-button">Sign In</button> */}
           </form>
         </section>
       </main>
