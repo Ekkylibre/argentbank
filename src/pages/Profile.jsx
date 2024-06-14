@@ -1,7 +1,7 @@
 import Footer from "../components/Footer";
 import Navbar from "../components/NavBar";
 
-function User() {
+function Profile() {
   return (
     <>
         <Navbar />
@@ -47,4 +47,4 @@ function User() {
   );
 }
 
-export default User;
+export default Profile;
