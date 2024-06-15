@@ -10,8 +10,7 @@ export const login = (email, password) => {
 
       // Vérifier la réponse du backend
       if (response.status === 200) {
-        const { token, firstName } = response.data; // Assurez-vous que votre backend retourne bien le prénom
-        dispatch({ type: 'LOGIN_SUCCESS', payload: { token, firstName } });
+        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data }); // Utilisez response.data qui doit contenir les informations de l'utilisateur
       } else {
         dispatch({ type: 'LOGIN_FAILURE', payload: { error: 'Invalid username or password' } });
       }

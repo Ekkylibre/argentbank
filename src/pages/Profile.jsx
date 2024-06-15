@@ -1,30 +1,18 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../actions/authActions';
-import Navbar from '../components/NavBar';
-import Footer from '../components/Footer';
+import { useSelector } from 'react-redux';
+import Footer from "../components/Footer";
+import Navbar from "../components/NavBar";
 
 function Profile() {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.auth.user);
-
-  useEffect(() => {
-    // Vous pouvez implémenter ici une logique pour charger les détails du profil si nécessaire
-    // Par exemple, dispatch une action pour récupérer les informations du profil depuis le backend
-  }, []);
-
-  const handleLogin = () => {
-    // Exemple de fonction pour se connecter, appelant votre action `login`
-    dispatch(login('example@email.com', 'password123')); // Remplacez par vos variables de formulaire
-  };
+  const user = useSelector(state => state.auth.user); // Récupération de l'utilisateur depuis l'état Redux
+console.log(user)
 
   return (
     <>
       <Navbar />
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back<br />{user && user.firstName ? user.firstName : 'Guest'}!</h1>
-          <button className="edit-button" onClick={handleLogin}>Login</button>
+          <h1>Welcome back<br />{user ? `${user.body.firstName} ${user.body.lastName}` : 'Guest'}!</h1> {/* Affichage du prénom de l'utilisateur */}
+          <button className="edit-button">Edit Name</button>
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

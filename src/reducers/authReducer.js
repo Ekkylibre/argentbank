@@ -1,5 +1,3 @@
-// authReducer.js
-
 const initialState = {
   isAuthenticated: false,
   user: null,
@@ -9,11 +7,11 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-      console.log('Connexion réussie pour l\'utilisateur:', action.payload.firstName);
+      console.log('Connexion réussie pour l\'utilisateur:', action.payload);
       return {
         ...state,
         isAuthenticated: true,
-        user: { firstName: action.payload.firstName },
+        user: action.payload, // Assurez-vous que action.payload contient toutes les informations de l'utilisateur nécessaires
         error: null,
       };
     case 'LOGIN_FAILURE':
