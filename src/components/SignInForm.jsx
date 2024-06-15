@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
@@ -14,12 +14,13 @@ function SignInForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(username, password)); // Appel à l'action qui peut être une fonction grâce à redux-thunk
+  };
 
-    // Après avoir envoyé l'action, vérifiez si l'utilisateur est authentifié pour rediriger
+  useEffect(() => {
     if (isAuthenticated) {
       navigate('/profile');
     }
-  };
+  }, [isAuthenticated, navigate]);
 
   return (
     <form onSubmit={handleSubmit}>
