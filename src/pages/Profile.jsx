@@ -4,7 +4,6 @@ import Navbar from "../components/NavBar";
 
 function Profile() {
   const user = useSelector(state => state.auth.user); // Récupération de l'utilisateur depuis l'état Redux
-console.log(user)
 
   return (
     <>

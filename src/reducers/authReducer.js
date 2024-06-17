@@ -7,20 +7,25 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
-      console.log('Connexion réussie pour l\'utilisateur:', action.payload);
       return {
         ...state,
         isAuthenticated: true,
-        user: action.payload, // Assurez-vous que action.payload contient toutes les informations de l'utilisateur nécessaires
+        user: action.payload,
         error: null,
       };
     case 'LOGIN_FAILURE':
-      console.log('Échec de la connexion:', action.payload.error);
       return {
         ...state,
         isAuthenticated: false,
         user: null,
         error: action.payload.error,
+      };
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: null,
+        error: null,
       };
     default:
       return state;

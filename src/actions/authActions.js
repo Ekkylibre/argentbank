@@ -8,9 +8,8 @@ export const login = (email, password) => {
         password,
       });
 
-      // Vérifier la réponse du backend
       if (response.status === 200) {
-        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data }); // Utilisez response.data qui doit contenir les informations de l'utilisateur
+        dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
       } else {
         dispatch({ type: 'LOGIN_FAILURE', payload: { error: 'Invalid username or password' } });
       }
@@ -19,4 +18,8 @@ export const login = (email, password) => {
       dispatch({ type: 'LOGIN_FAILURE', payload: { error: 'An error occurred during login' } });
     }
   };
+};
+
+export const logout = () => {
+  return { type: 'LOGOUT' };
 };

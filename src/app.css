@@ -52,6 +52,7 @@ html {
   }
   
   .main-nav-item {
+    font-weight: bold;
     text-decoration: none;
     margin-right: 0.5rem;
   }
