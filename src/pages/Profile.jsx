@@ -1,17 +1,64 @@
-import { useSelector } from 'react-redux';
-import Footer from "../components/Footer";
-import Navbar from "../components/NavBar";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../actions/authActions';
+import Footer from '../components/Footer';
+import Navbar from '../components/NavBar';
 
 function Profile() {
-  const user = useSelector(state => state.auth.user); // Récupération de l'utilisateur depuis l'état Redux
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const error = useSelector((state) => state.auth.error);
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    }
+  }, [user]);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = () => {
+    dispatch(updateUser({ firstName, lastName }));
+    setIsEditing(false);
+  };
 
   return (
     <>
       <Navbar />
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back<br />{user ? `${user.body.firstName} ${user.body.lastName}` : 'Guest'}!</h1> {/* Affichage du prénom de l'utilisateur */}
-          <button className="edit-button">Edit Name</button>
+          <h1>
+            Welcome back
+            <br />
+            {user ? `${firstName} ${lastName}` : 'Guest'}!
+          </h1>
+          {isEditing ? (
+            <div>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <button onClick={handleSaveClick}>Save</button>
+              {error && <p className="error-message">{error}</p>}
+            </div>
+          ) : (
+            <button className="edit-button" onClick={handleEditClick}>
+              Edit Name
+            </button>
+          )}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">

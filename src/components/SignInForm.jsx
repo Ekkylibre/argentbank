@@ -4,7 +4,7 @@ import { login } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
 
 function SignInForm() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ function SignInForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(username, password)); // Appel à l'action qui peut être une fonction grâce à redux-thunk
+    dispatch(login({ email, password }));
   };
 
   useEffect(() => {
@@ -25,12 +25,13 @@ function SignInForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-wrapper">
-        <label htmlFor="username">Username</label>
+        <label htmlFor="email">Email</label>
         <input 
-          type="text" 
-          id="username" 
-          value={username} 
-          onChange={(e) => setUsername(e.target.value)} 
+          type="email" 
+          id="email" 
+          value={email} 
+          onChange={(e) => setEmail(e.target.value)} 
+          required
         />
       </div>
       <div className="input-wrapper">
@@ -40,6 +41,7 @@ function SignInForm() {
           id="password" 
           value={password} 
           onChange={(e) => setPassword(e.target.value)} 
+          required
         />
       </div>
       <div className="input-remember">
