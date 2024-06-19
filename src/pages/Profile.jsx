@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../actions/authActions';
+import { Navigate } from 'react-router-dom'; // Utilisez Navigate à la place de Redirect
+
 import Footer from '../components/Footer';
 import Navbar from '../components/NavBar';
 
 function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const error = useSelector((state) => state.auth.error);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const [isEditing, setIsEditing] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -28,6 +30,11 @@ function Profile() {
     dispatch(updateUser({ firstName, lastName }));
     setIsEditing(false);
   };
+
+  // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+  if (!isAuthenticated) {
+    return <Navigate to="/signin" />;
+  }
 
   return (
     <>
@@ -52,7 +59,6 @@ function Profile() {
                 onChange={(e) => setLastName(e.target.value)}
               />
               <button onClick={handleSaveClick}>Save</button>
-              {error && <p className="error-message">{error}</p>}
             </div>
           ) : (
             <button className="edit-button" onClick={handleEditClick}>
