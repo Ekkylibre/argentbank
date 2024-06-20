@@ -32,8 +32,8 @@ const authSlice = createSlice({
     updateUserSuccess: (state, action) => {
       console.log('Update User Success Payload:', action.payload); // Affichez le payload reçu du backend
 
-      state.user.firstName = action.payload.firstName;
-      state.user.lastName = action.payload.lastName;
+      state.user.firstName = action.payload.body.firstName;
+      state.user.lastName = action.payload.body.lastName;
       state.error = null;
     },
     updateUserFailure: (state, action) => {

@@ -59,7 +59,7 @@ export const updateUser = ({ firstName, lastName }) => async (dispatch, getState
     });
 
     if (response.status === 200) {
-      dispatch(updateUserSuccess(response.data)); // Mettre à jour le state Redux avec les nouvelles informations utilisateur
+      dispatch(updateUserSuccess(response.data.body)); // Mettre à jour le state Redux avec les nouvelles informations utilisateur
     } else {
       dispatch(updateUserFailure({ error: 'Unable to update user information' }));
     }
