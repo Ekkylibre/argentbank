@@ -27,6 +27,7 @@ function Profile() {
   };
 
   const handleSaveClick = () => {
+    console.log('Save button clicked');
     dispatch(updateUser({ firstName, lastName }));
     setIsEditing(false);
   };

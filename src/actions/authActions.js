@@ -46,7 +46,7 @@ export const updateUser = ({ firstName, lastName }) => async (dispatch, getState
   }
 
   try {
-    const response = await axios.put('http://localhost:3001/api/v1/user/profile', {
+    const response = await axios.put(`${API_URL}/user/profile`, {
       firstName,
       lastName,
     }, {
