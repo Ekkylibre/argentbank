@@ -18,6 +18,7 @@ export const login = createAsyncThunk(
       console.log('Réponse de login:', response);
 
       if (response.status === 200) {
+        console.log('Token reçu:', response.data.body.token);
         dispatch(loginSuccess(response.data));
       } else {
         return rejectWithValue('Invalid username or password');
@@ -38,7 +39,9 @@ export const logout = () => (dispatch) => {
 // Action asynchrone pour mettre à jour l'utilisateur
 export const updateUser = ({ firstName, lastName }) => async (dispatch, getState) => {
   const { auth } = getState();
-  const token = auth.token;
+  const token = auth.token; // Récupérer le token depuis le state Redux
+
+  console.log('token', token); // Assurez-vous que le token est correctement récupéré
 
   if (!token) {
     dispatch(updateUserFailure({ error: 'No token found' }));
@@ -56,12 +59,17 @@ export const updateUser = ({ firstName, lastName }) => async (dispatch, getState
     });
 
     if (response.status === 200) {
-      dispatch(updateUserSuccess(response.data));
+      dispatch(updateUserSuccess(response.data)); // Mettre à jour le state Redux avec les nouvelles informations utilisateur
     } else {
       dispatch(updateUserFailure({ error: 'Unable to update user information' }));
     }
   } catch (error) {
     console.error('Error updating user:', error);
-    dispatch(updateUserFailure({ error: 'An error occurred during the update' }));
+    if (error.response) {
+      dispatch(updateUserFailure({ error: error.response.data.message }));
+    } else {
+      dispatch(updateUserFailure({ error: 'An error occurred during the update' }));
+    }
   }
 };
+
