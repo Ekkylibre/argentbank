@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { loginSuccess, logout as logoutAction, updateUserFailure, updateUserSuccess } from '../reducers/authReducer';
+import { loginFailure, loginSuccess, logout as logoutAction, updateUserFailure, updateUserSuccess } from '../reducers/authReducer';
 
 const API_URL = 'http://localhost:3001/api/v1';
 
@@ -21,10 +21,12 @@ export const login = createAsyncThunk(
         console.log('Token reçu:', response.data.body.token);
         dispatch(loginSuccess(response.data));
       } else {
+        dispatch(loginFailure({ error: 'Invalid username or password' }));
         return rejectWithValue('Invalid username or password');
       }
     } catch (error) {
       console.error('Error during login:', error);
+      dispatch(loginFailure({ error: 'An error occurred during login' }));
       return rejectWithValue('An error occurred during login');
     }
   }
