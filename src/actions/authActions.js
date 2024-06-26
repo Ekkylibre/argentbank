@@ -39,9 +39,9 @@ export const logout = () => (dispatch) => {
 // Action asynchrone pour mettre à jour l'utilisateur
 export const updateUser = ({ firstName, lastName }) => async (dispatch, getState) => {
   const { auth } = getState();
-  const token = auth.token; // Récupérer le token depuis le state Redux
+  const token = auth.token;
 
-  console.log('token', token); // Assurez-vous que le token est correctement récupéré
+  console.log('token', token);
 
   if (!token) {
     dispatch(updateUserFailure({ error: 'No token found' }));
@@ -59,7 +59,7 @@ export const updateUser = ({ firstName, lastName }) => async (dispatch, getState
     });
 
     if (response.status === 200) {
-      dispatch(updateUserSuccess(response.data.body)); // Mettre à jour le state Redux avec les nouvelles informations utilisateur
+      dispatch(updateUserSuccess(response.data.body));
     } else {
       dispatch(updateUserFailure({ error: 'Unable to update user information' }));
     }

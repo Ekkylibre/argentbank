@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../actions/authActions';
-import { Navigate } from 'react-router-dom'; // Utilisez Navigate à la place de Redirect
+import { Navigate } from 'react-router-dom';
+import { startEditing, stopEditing } from '../reducers/authReducer';
 
 import Footer from '../components/Footer';
 import Navbar from '../components/NavBar';
@@ -10,29 +11,36 @@ function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isEditing = useSelector((state) => state.auth.isEditing);
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [profile, setProfile] = useState({ firstName: '', lastName: '' });
+  const [initialProfile, setInitialProfile] = useState({ firstName: '', lastName: '' });
 
   useEffect(() => {
     if (user) {
-      setFirstName(user.firstName);
-      setLastName(user.lastName);
+      setProfile({ firstName: user.firstName, lastName: user.lastName });
+      setInitialProfile({ firstName: user.firstName, lastName: user.lastName });
     }
   }, [user]);
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
+  };
+
   const handleEditClick = () => {
-    setIsEditing(true);
+    dispatch(startEditing());
   };
 
   const handleSaveClick = () => {
-    console.log('Save button clicked');
-    dispatch(updateUser({ firstName, lastName }));
-    setIsEditing(false);
+    dispatch(updateUser(profile));
   };
 
-  // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+  const handleCancelClick = () => {
+    setProfile(initialProfile);
+    dispatch(stopEditing());
+  };
+
   if (!isAuthenticated) {
     return <Navigate to="/signin" />;
   }
@@ -45,21 +53,24 @@ function Profile() {
           <h1>
             Welcome back
             <br />
-            {user ? `${firstName} ${lastName}` : 'Guest'}!
+            {user ? `${profile.firstName} ${profile.lastName}` : 'Guest'}!
           </h1>
           {isEditing ? (
             <div>
               <input
                 type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                name="firstName"
+                value={profile.firstName}
+                onChange={handleInputChange}
               />
               <input
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                name="lastName"
+                value={profile.lastName}
+                onChange={handleInputChange}
               />
               <button onClick={handleSaveClick}>Save</button>
+              <button onClick={handleCancelClick}>Cancel</button>
             </div>
           ) : (
             <button className="edit-button" onClick={handleEditClick}>

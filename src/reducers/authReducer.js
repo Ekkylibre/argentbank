@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   token: null,
   error: null,
+  isEditing: false,
 };
 
 const authSlice = createSlice({
@@ -28,21 +29,35 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
+      state.isEditing = false;
     },
     updateUserSuccess: (state, action) => {
-      console.log('Update User Success Payload:', action.payload); // Affichez le payload reçu du backend
-
-      state.user.firstName = action.payload.body.firstName;
-      state.user.lastName = action.payload.body.lastName;
+      console.log('Update User Success Payload:', action.payload);
+      state.user.firstName = action.payload.firstName;
+      state.user.lastName = action.payload.lastName;
       state.error = null;
+      state.isEditing = false;
     },
     updateUserFailure: (state, action) => {
-      console.log('Update User Failure Payload:', action.payload); // Affichez l'erreur reçue en cas d'échec de la mise à jour
-
+      console.log('Update User Failure Payload:', action.payload);
       state.error = action.payload.error;
+    },
+    startEditing: (state) => {
+      state.isEditing = true;
+    },
+    stopEditing: (state) => {
+      state.isEditing = false;
     },
   },
 });
 
-export const { loginSuccess, loginFailure, logout, updateUserSuccess, updateUserFailure } = authSlice.actions;
+export const {
+  loginSuccess,
+  loginFailure,
+  logout,
+  updateUserSuccess,
+  updateUserFailure,
+  startEditing,
+  stopEditing,
+} = authSlice.actions;
 export default authSlice.reducer;
