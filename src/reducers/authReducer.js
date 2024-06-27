@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// Initial state of the authentication slice
 const initialState = {
   isAuthenticated: false,
   user: null,
@@ -8,6 +9,7 @@ const initialState = {
   isEditing: false,
 };
 
+// Definition of the authentication slice using Redux Toolkit
 const authSlice = createSlice({
   name: 'auth',
   initialState,

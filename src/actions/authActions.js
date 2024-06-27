@@ -4,7 +4,7 @@ import { loginFailure, loginSuccess, logout as logoutAction, updateUserFailure, 
 
 const API_URL = 'http://localhost:3001/api/v1';
 
-// Action asynchrone pour le login
+// Asynchronous action for login
 export const login = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { dispatch, rejectWithValue }) => {
@@ -27,12 +27,12 @@ export const login = createAsyncThunk(
   }
 );
 
-// Action asynchrone pour le logout
+// Asynchronous action for logout
 export const logout = () => (dispatch) => {
   dispatch(logoutAction());
 };
 
-// Action asynchrone pour mettre à jour l'utilisateur
+// Asynchronous action to update user
 export const updateUser = ({ firstName, lastName }) => async (dispatch, getState) => {
   const { auth } = getState();
   const token = auth.token;
@@ -65,4 +65,3 @@ export const updateUser = ({ firstName, lastName }) => async (dispatch, getState
     }
   }
 };
-
