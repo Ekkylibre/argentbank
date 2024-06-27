@@ -57,74 +57,88 @@ Ce projet vise à développer une application web pour Argent Bank en deux phase
 - @reduxjs/toolkit: 1.22.19
 
 ### Procédure d'installation
+#### Backend
+Clonage et Installation du Projet Backend
+1. **Clonage du repository :**
+Ouvrez votre terminal et exécutez la commande suivante pour cloner le repository depuis GitHub :
+    ```bash
+    git clone https://github.com/Ekkylibre/Project-10-Bank-API.git
+    ```
 
+2. **Accès au Dossier Cloné :**
+Une fois le clonage terminé, accédez au dossier du projet :
+    ```bash
+    cd Project-10-Bank-API
+    ```
+
+3. **Installation des Dépendances :**
+   - Assurez-vous d'avoir Node.js installé sur votre système (idéalement la version 12 comme mentionné). Ensuite, installez les dépendances du projet avec npm ou yarn :
+       ```bash
+       npm install
+       ```
+       ou
+       ```bash
+       yarn
+       ```
+
+    - Lancer le back-end:
+       ```bash
+       npm run dev:server
+       ```
+       ou
+       ```bash
+       yarn dev:server
+       ```
+4. **Configuration de MongoDB :**
+
+    Assurez-vous que MongoDB est installé et en cours d'exécution sur votre machine. Si nécessaire, ajustez la configuration de la base de données dans le projet selon les instructions du README du projet.
+
+ #### Frontend   
+    
 1. **Clonage du repository :**
 
    ```bash
    git clone https://github.com/Ekkilibre/Argent-Bank
     ```
 
-2. **Installation et lancement du Back-end :**
-
-- Aller dans le dossier "Back"
-- Vérifier la version de Node: node --version
-- Vérifier la version de MongoDB: mongo --version
-- Installer les dépendances: npm install ou yarn
-- Installer les dépendances:
-  ```bash
-  npm install
-  ```
-  ou
-  ```bash
-  yarn
-  ```
-- Lancer le back-end:
-    ```bash
-    npm run dev:server
-    ```
-    ou
-    ```bash
-    yarn dev:server
-    ```
-
-3. **Création d'utilisateurs dans la base de données :**
+2. **Création d'utilisateurs dans la base de données :**
    ```bash
    npm run populate-db
     ```
 
-4. **API Documentation :**
+3. **API Documentation :**
    
    Une fois le serveur local lancé, visitez : http://localhost:3001/api-docs
 
-5. **Installation et lancement du Front-end :**
-- Aller dans le dossier "Front"
-- Installer les dépendances pour le front-end:
-- ```bash
-    npm install
-    ```
-    ou
-    ```bash
-    yarn
-    ```
-- Lancer le front-end:
-  ```bash
-  npm start
-  ```
-  ou
-  ```bash
-  yarn dev
-  ```
+4. **Installation et lancement du Front-end :**
+   - Aller dans le dossier "Front"
+   - Installer les dépendances pour le front-end:
+       ```bash
+       npm install
+       ```
+       ou
+       ```bash
+       yarn
+       ```
+   - Lancer le front-end:
+     ```bash
+     npm start
+     ```
+     ou
+     ```bash
+     yarn dev
+     ```
 Le front-end sera accessible à l'URL : http://localhost:5173/
 
 ## Utilisateurs en base de données
 
-- **Tony Stark**
+**Tony Stark**
   - First Name: Tony
   - Last Name: Stark
   - Email: tony@stark.com
   - Password: password123
 
-- **Steve Rogers**
+**Steve Rogers**
   - First Name: Steve
   - Last Name: Rogers
   - Email: steve@rogers.com

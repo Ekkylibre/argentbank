@@ -32,14 +32,12 @@ const authSlice = createSlice({
       state.isEditing = false;
     },
     updateUserSuccess: (state, action) => {
-      console.log('Update User Success Payload:', action.payload);
       state.user.firstName = action.payload.firstName;
       state.user.lastName = action.payload.lastName;
       state.error = null;
       state.isEditing = false;
     },
     updateUserFailure: (state, action) => {
-      console.log('Update User Failure Payload:', action.payload);
       state.error = action.payload.error;
     },
     startEditing: (state) => {
