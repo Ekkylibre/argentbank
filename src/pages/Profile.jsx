@@ -69,8 +69,8 @@ function Profile() {
                 value={profile.lastName}
                 onChange={handleInputChange}
               />
-              <button onClick={handleSaveClick}>Save</button>
               <button onClick={handleCancelClick}>Cancel</button>
+              <button onClick={handleSaveClick}>Save</button>
             </div>
           ) : (
             <button className="edit-button" onClick={handleEditClick}>
