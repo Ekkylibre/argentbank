@@ -52,7 +52,7 @@ paths:
           name: transactionId
           description: ID of the transaction
           required: true
-          type: string
+          type: integer
       responses:
         '200':
           description: Successful response
@@ -81,7 +81,7 @@ paths:
           name: transactionId
           description: ID of the transaction
           required: true
-          type: string
+          type: integer
         - in: body
           name: body
           description: Category and Notes for the transaction
@@ -265,7 +265,7 @@ definitions:
         type: object
         properties:
           id:
-            type: string
+            type: integer
           email:
             type: string
   LoginResponse:
@@ -284,7 +284,7 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
       description:
         type: string
       amount:
@@ -296,11 +296,15 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
       description:
         type: string
       amount:
         type: number
+      balance:
+        type: number
+        format: float
+        multipleOf: 0.01
       date:
         type: string
         format: date-time
