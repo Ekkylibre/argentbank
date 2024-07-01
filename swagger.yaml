@@ -34,8 +34,10 @@ paths:
           description: Unauthorized
         '500':
           description: Internal Server Error
-  /transactions/{transactionId}:
+  /transaction/{transactionId}:
     get:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
       summary: Get Transaction Details
@@ -50,12 +52,12 @@ paths:
           name: transactionId
           description: ID of the transaction
           required: true
-          type: string
+          type: integer
       responses:
         '200':
           description: Successful response
           schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionDetails'
         '401':
           description: Unauthorized
         '404':
@@ -63,9 +65,11 @@ paths:
         '500':
           description: Internal Server Error
     put:
+      security:
+        - Bearer: []
       tags:
         - Transactions Module
-      summary: Update Transaction Category
+      summary: Update Transaction Category & Notes
       description: Update the category for an existing transaction
       parameters:
         - in: header
@@ -77,52 +81,18 @@ paths:
           name: transactionId
           description: ID of the transaction
           required: true
-          type: string
+          type: integer
         - in: body
-          name: category
-          description: New category for the transaction
+          name: body
+          description: Category and Notes for the transaction
           required: true
           schema:
-            type: string
-            enum: [Housing, Utilities, Food, Transportation, Healthcare, Insurance, Clothing]
+            $ref: '#/definitions/UpdateTransaction'
       responses:
         '200':
           description: Transaction category updated successfully
           schema:
-            $ref: '#/definitions/Transaction'
-        '401':
-          description: Unauthorized
-        '404':
-          description: Transaction not found
-        '500':
-          description: Internal Server Error
-    patch:
-      tags:
-        - Transactions Module
-      summary: Update Transaction Notes
-      description: Update the notes for an existing transaction
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-          type: string
-        - in: path
-          name: transactionId
-          description: ID of the transaction
-          required: true
-          type: string
-        - in: body
-          name: notes
-          description: New notes for the transaction
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Transaction notes updated successfully
-          schema:
-            $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionDetails'
         '401':
           description: Unauthorized
         '404':
@@ -295,7 +265,7 @@ definitions:
         type: object
         properties:
           id:
-            type: string
+            type: integer
           email:
             type: string
   LoginResponse:
@@ -314,7 +284,7 @@ definitions:
     type: object
     properties:
       id:
-        type: string
+        type: integer
       description:
         type: string
       amount:
@@ -322,15 +292,39 @@ definitions:
       date:
         type: string
         format: date-time
+  TransactionDetails:
+    type: object
+    properties:
+      id:
+        type: integer
+      description:
+        type: string
+      amount:
+        type: number
+      balance:
+        type: number
+        format: float
+        multipleOf: 0.01
+      date:
+        type: string
+        format: date-time
       type:
         type: string
-        enum: [electronic, cash, check, transfer]
+        enum: [electronic, transfer, cash, check]
       category:
         type: string
-        enum: [food, entertainment, utilities, housing, transportation, other]
+        enum: [housing, utilities, food, transportation, healthcare, insurance, clothing]
       notes:
         type: string
   TransactionList:
     type: array
     items:
       $ref: '#/definitions/Transaction'
+  UpdateTransaction:
+    type: object
+    properties:
+      category:
+        type: string
+        enum: [housing, utilities, food, transportation, healthcare, insurance, clothing]
+      notes:
+        type: string
