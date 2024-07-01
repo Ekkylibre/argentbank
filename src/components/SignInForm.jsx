@@ -4,12 +4,13 @@ import { login } from '../actions/authActions';
 import { useNavigate } from 'react-router-dom';
 
 function SignInForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const error = useSelector(state => state.auth.error);
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();

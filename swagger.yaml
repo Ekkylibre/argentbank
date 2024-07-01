@@ -84,7 +84,7 @@ paths:
           required: true
           schema:
             type: string
-            enum: [Housing, Utilities, Food, Transportation, Healthcare, Insurance, Clothing]
+            enum: [housing, utilities, food, transportation, healthcare, insurance, clothing]
       responses:
         '200':
           description: Transaction category updated successfully
@@ -324,10 +324,10 @@ definitions:
         format: date-time
       type:
         type: string
-        enum: [electronic, cash, check, transfer]
+        enum: [transfer, electronic, cash, check]
       category:
         type: string
-        enum: [food, entertainment, utilities, housing, transportation, other]
+        enum: [housing, utilities, food, transportation, healthcare, insurance, clothing]
       notes:
         type: string
   TransactionList:
