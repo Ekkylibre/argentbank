@@ -7,7 +7,7 @@ const API_URL = 'http://localhost:3001/api/v1';
 // Asynchronous action for login
 export const login = createAsyncThunk(
   'auth/login',
-  async ({ email, password }, { dispatch, rejectWithValue }) => {
+  async ({ email, password }, { dispatch }) => {
     try {
       const response = await axios.post(`${API_URL}/user/login`, {
         email,
@@ -18,11 +18,9 @@ export const login = createAsyncThunk(
         dispatch(loginSuccess(response.data));
       } else {
         dispatch(loginFailure({ error: 'Invalid username or password' }));
-        return rejectWithValue('Invalid username or password');
       }
     } catch (error) {
       dispatch(loginFailure({ error: 'An error occurred during login' }));
-      return rejectWithValue('An error occurred during login');
     }
   }
 );
