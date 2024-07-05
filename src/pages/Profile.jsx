@@ -41,9 +41,9 @@ function Profile() {
     dispatch(stopEditing());
   };
 
-  if (!isAuthenticated) {
-    return <Navigate to="/signin" />;
-  }
+  if (!isAuthenticated && !user) {
+    return <Navigate to="/sign-in" />;
+  }  
 
   return (
     <>

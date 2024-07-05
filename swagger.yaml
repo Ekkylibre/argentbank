@@ -280,18 +280,6 @@ definitions:
         type: string
       lastName:
         type: string
-  Transaction:
-    type: object
-    properties:
-      id:
-        type: integer
-      description:
-        type: string
-      amount:
-        type: number
-      date:
-        type: string
-        format: date-time
   TransactionDetails:
     type: object
     properties:
@@ -319,7 +307,7 @@ definitions:
   TransactionList:
     type: array
     items:
-      $ref: '#/definitions/Transaction'
+      $ref: '#/definitions/TransactionDetails'
   UpdateTransaction:
     type: object
     properties:
