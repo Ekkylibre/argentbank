@@ -1,11 +1,15 @@
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../actions/authActions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle, faSignOut } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const user = useSelector(state => state.auth.user);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -23,14 +27,20 @@ function Navbar() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
+        {isAuthenticated && (
+          <Link className="main-nav-item" to="/profile">
+            <FontAwesomeIcon icon={faUserCircle} />
+            {user.firstName}
+          </Link>
+        )}
         {isAuthenticated ? (
           <span className="main-nav-item" onClick={handleLogout} style={{ cursor: 'pointer' }}>
-            <i className="fa fa-user-circle"></i>
+            <FontAwesomeIcon icon={faSignOut} />
             Sign Out
           </span>
         ) : (
           <Link className="main-nav-item" to="/sign-in">
-            <i className="fa fa-user-circle"></i>
+            <FontAwesomeIcon icon={faUserCircle} />
             Sign In
           </Link>
         )}
